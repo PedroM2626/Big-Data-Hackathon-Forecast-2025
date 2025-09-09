@@ -11,33 +11,14 @@ Este projeto tem como objetivo prever a quantidade semanal de vendas por PDV (Po
 ## Estrutura do Projeto
 ```
 Big-Data-Hackathon-Forecast-2025/
-├── data/               # Dados brutos e processados
-├── docs/               # Documentação do projeto
-├── models/             # Modelos treinados
-├── notebooks/          # Jupyter notebooks para análise exploratória
-└── src/                # Código-fonte
-    ├── data/           # Scripts para processamento de dados
-    ├── features/       # Engenharia de features
-    ├── models/         # Definição e treinamento de modelos
-    └── utils/          # Utilitários gerais
+├── Dados/               # Dados brutos em formato parquet
+├── LICENSE             # Licença do projeto
+├── README.md           # Documentação principal
+├── products_recommendation_notebook.ipynb  # Notebook de análise
+└── requirements.txt    # Dependências do projeto
 ```
-
-## Pipeline de Dados
-1. **Extração**: Carregamento dos dados de vendas
-2. **Limpeza**: Tratamento de valores ausentes e outliers
-3. **Feature Engineering**: Criação de novas variáveis
-4. **Modelagem**: Treinamento do modelo de previsão
-5. **Avaliação**: Métricas de desempenho do modelo
-6. **Previsão**: Geração das previsões finais
 
 ## Como Executar
 1. Clone o repositório
 2. Instale as dependências: `pip install -r requirements.txt`
-3. Execute o pipeline: `python src/main.py`
-
-## Próximos Passos
-- [ ] Coletar e organizar os dados de vendas
-- [ ] Implementar pipeline de processamento
-- [ ] Desenvolver modelo de previsão
-- [ ] Validar resultados
-- [ ] Otimizar desempenho
+3. Abra o Jupyter Notebook: `jupyter notebook products_recommendation_notebook.ipynb`
