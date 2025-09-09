@@ -1,0 +1,40 @@
+# Development dependencies
+-r requirements.txt
+
+# Testing
+pytest>=6.0.0
+pytest-cov>=2.8.0
+pytest-mock>=3.0.0
+
+# Code quality
+black>=21.12b0
+isort>=5.10.0
+flake8>=4.0.0
+mypy>=0.940
+pre-commit>=2.0.0
+
+# Documentation
+sphinx>=4.0.0
+sphinx-rtd-theme>=1.0.0
+nbsphinx>=0.8.0
+sphinxcontrib-napoleon>=0.7
+
+# Jupyter
+jupyterlab>=3.0.0
+ipykernel>=6.0.0
+
+# Data visualization
+plotly>=5.0.0
+kaleido>=0.2.0  # For static image export with Plotly
+
+# Development tools
+jupyter-contrib-nbextensions>=0.5.0
+jupyter-nbextensions-configurator>=0.4.0
+
+# Optional: For data profiling
+pandas-profiling>=3.1.0
+
+# Optional: For API development
+fastapi>=0.70.0
+uvicorn>=0.15.0
+python-multipart>=0.0.5
