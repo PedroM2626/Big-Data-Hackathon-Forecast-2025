@@ -15,7 +15,7 @@ de software e machine learning, incluindo:
 - Validação cruzada temporal e tuning de hiperparâmetros.
 - Logging profissional e documentação completa.
 
-Autor: [Seu Nome/Nome da Equipe]
+Autor: BSB Data 01
 Data da Versão: 2025-09-12
 """
 
@@ -330,4 +330,5 @@ def main():
 
 
 if __name__ == "__main__":
+
     main()
