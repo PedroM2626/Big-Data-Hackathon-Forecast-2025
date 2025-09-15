@@ -82,6 +82,9 @@ class SalesForecaster:
             df_vendas = pd.read_parquet(file_paths['vendas'])
             df_pdvs = pd.read_parquet(file_paths['pdvs'])
             df_produtos = pd.read_parquet(file_paths['produtos'])
+            logging.info(f"Colunas de Vendas: {df_vendas.columns.tolist()}")
+            logging.info(f"Colunas de PDVs: {df_pdvs.columns.tolist()}")
+            logging.info(f"Colunas de Produtos: {df_produtos.columns.tolist()}")
             logging.info("Arquivos de vendas, pdvs e produtos carregados com sucesso.")
         except (FileNotFoundError, KeyError) as e:
             logging.error(f"Erro ao carregar os arquivos. Verifique os caminhos no dicionário 'file_paths'. Erro: {e}")
@@ -91,20 +94,18 @@ class SalesForecaster:
         df_merged = pd.merge(
             df_vendas,
             df_pdvs,
-            left_on='internal_store_id',
-            right_on='pdv',
+            on='pdv',
             how='inner'
         )
         df_merged = pd.merge(
             df_merged,
             df_produtos,
-            left_on='internal_product_id',
-            right_on='produto',
+            on='produto',
             how='inner'
         )
         logging.info(f"Tabelas unidas. DataFrame resultante com {df_merged.shape[0]} registros.")
 
-        df_merged['transaction_date'] = pd.to_datetime(df_merged['transaction_date'])
+        df_merged['transaction_date'] = pd.to_datetime(df_merged['data_da_transacao'])
         df_merged['ano'] = df_merged['transaction_date'].dt.isocalendar().year
         df_merged['semana'] = df_merged['transaction_date'].dt.isocalendar().week
 
@@ -293,9 +294,9 @@ def main():
     logging.info("Iniciando o Pipeline de Previsão de Vendas.")
 
     file_paths = {
-        'pdvs': r'data/raw/dim_pdvs.parquet',
-        'vendas': r'data/raw/fato_vendas.parquet',
-        'produtos': r'data/raw/dim_produtos.parquet'
+        'pdvs': r'data\raw\dim_pdvs.parquet',
+        'vendas': r'data\raw\fato_vendas.parquet',
+        'produtos': r'data\raw\dim_produtos.parquet'
     }
     
     forecaster = SalesForecaster()
