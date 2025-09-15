@@ -16,7 +16,7 @@ de software e machine learning, incluindo:
 - Logging profissional e documentação completa.
 
 Autor: BSB Data 01
-Data da Versão: 2025-09-12
+Data da Versão: 2025-09-15
 """
 
 import logging
@@ -330,5 +330,4 @@ def main():
 
 
 if __name__ == "__main__":
-
     main()
