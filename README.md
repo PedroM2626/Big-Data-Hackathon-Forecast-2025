@@ -4,6 +4,13 @@
 
 Este projeto desenvolve um sistema de forecasting para apoiar a reposição automática de estoque, prevendo quantidades semanais de vendas por PDV/SKU para otimizar o processo de compras.
 
+## 🌟 Novidades da Versão 2.0
+
+- **Eficiência Aprimorada**: O indicador de eficiência (bins) saltou de **1.400 para 14.100**, representando um ganho massivo na capacidade de processamento e análise.
+- **Artefatos de Treinamento Completos**: Feedbacks de treinamento muito mais detalhados e completos, permitindo uma análise mais profunda do desempenho do modelo.
+- **Inteligência de Negócios Aplicada**: Melhoria crucial na representação das tabelas de dimensão, agora exibindo as informações essenciais para a tomada de decisão.
+- **Foco no Notebook**: O arquivo `Forecast_Model_Notebook.ipynb` é agora o ponto central do projeto, simplificando a execução e análise.
+
 ## 📋 Objetivo
 
 Desenvolver um modelo de machine learning para prever a quantidade semanal de vendas por **PDV (Ponto de Venda)** e **SKU (Stock Keeping Unit)** para as 5 primeiras semanas de janeiro de 2023, baseado nos dados históricos de vendas de 2022.
@@ -29,17 +36,17 @@ Desenvolver um modelo de machine learning para prever a quantidade semanal de ve
 
 ```
 Big-Data-Hackathon-Forecast-2025/
+├── artifacts/
+│   └── sales_forecaster.joblib        # Artefato do modelo treinado
 ├── data/
-│   ├── raw/                           # Dados brutos (arquivos parquet)
-│   └── processed/                     # Dados processados e previsões
-├── tests/                             # Scripts Python de teste e desenvolvimento
-│   ├── forecast_demo_complete.py      # ⭐ Script principal funcional
-│   ├── simple_test.py                 # Teste básico de bibliotecas
-│   └── README.md                      # Documentação dos scripts
-├── forecast_model_notebook.ipynb      # 📓 Notebook principal
-├── requirements.txt                   # Dependências do projeto
-├── Makefile                          # Comandos automatizados
-└── README.md                         # Este arquivo
+│   └── raw/                           # Dados brutos (arquivos parquet)
+├── .gitignore
+├── Forecast_Model_Notebook.ipynb      # 📓 Notebook principal para execução e análise
+├── forescast_model.py                 # Script com a lógica do modelo
+├── LICENSE
+├── Makefile
+├── README.md                          # Este arquivo
+└── requirements.txt                   # Dependências do projeto
 ```
 
 ## 📥 Preparação dos Dados
@@ -47,58 +54,46 @@ Big-Data-Hackathon-Forecast-2025/
 **⚠️ IMPORTANTE**: Os dados originais não estão incluídos no repositório devido ao tamanho.
 
 ### Download dos Dados:
-1. **Acesse**: https://hackathon.bdtech.ai/download
+1. **Acesse**: https://drive.google.com/drive/folders/1SIJvM5ZCZV_yVdD4TepnY2csAPXwIDkw?usp=sharing 
 2. **Baixe** os arquivos que estão no formato `.parquet`
 3. **Coloque** os arquivos baixados na pasta `data/raw/`
 
 A estrutura deve ficar assim:
 ```
 data/raw/
-├── part-00000-tid-xxxxx.snappy.parquet
-├── part-00000-tid-yyyyy.snappy.parquet
-└── part-00000-tid-zzzzz.snappy.parquet
+├── dim_pdvs.parquet
+├── dim_produtos.parquet
+└── fato_vendas.parquet
 ```
 
 ## 🚀 Como Executar
 
-### Opção 1: Jupyter Notebook (Recomendado para Análise)
+O projeto agora é centrado no Jupyter Notebook para facilitar a análise e a execução.
+
 ```bash
-# 1. Instalar dependências
+# 1. Crie um ambiente virtual e ative-o
+python -m venv .venv
+source .venv/bin/activate  # Linux/macOS
+# .venv\Scripts\activate  # Windows
+
+# 2. Instale as dependências
 pip install -r requirements.txt
 
-# 2. Abrir Jupyter Notebook
-jupyter notebook forecast_model_notebook.ipynb
+# 3. Abra o Jupyter Notebook
+jupyter notebook Forecast_Model_Notebook.ipynb
 
-# 3. Executar células sequencialmente (Shift+Enter)
-```
-
-### Opção 2: Script Python (Execução Direta)
-```bash
-# 1. Instalar dependências
-pip install -r requirements.txt
-
-# 2. Executar script principal
-python tests/forecast_demo_complete.py
-```
-
-### Opção 3: Testes Básicos
-```bash
-# Testar funcionalidades básicas
-python tests/simple_test.py
-
-# Testar carregamento de dados
-python tests/test_data_loading.py
+# 4. Execute as células sequencialmente (Shift+Enter)
 ```
 
 ## 📈 Pipeline de Machine Learning
 
-1. **📂 Carregamento de Dados**: Arquivos parquet ou dados simulados
-2. **📊 Análise Exploratória**: Padrões, sazonalidade e tendências
-3. **⚙️ Feature Engineering**: Variáveis temporais e categóricas
-4. **🤖 Modelagem**: Random Forest Regressor otimizado
-5. **✅ Validação**: Split temporal (últimas 8 semanas)
-6. **🎯 Previsões**: Forecasts para 5 semanas de janeiro 2023
-7. **💾 Exportação**: CSV e relatórios em `data/processed/`
+1. **📂 Carregamento de Dados**: Arquivos parquet da pasta `data/raw/`.
+2. **📊 Análise Exploratória**: Padrões, sazonalidade e tendências.
+3. **⚙️ Feature Engineering**: Variáveis temporais e categóricas.
+4. **🤖 Modelagem**: Random Forest Regressor otimizado.
+5. **✅ Validação**: Split temporal (últimas 8 semanas).
+6. **🎯 Previsões**: Forecasts para 5 semanas de janeiro 2023.
+7. **💾 Exportação**: CSV com as previsões e artefato do modelo.
 
 ## 📊 Métricas de Avaliação
 
@@ -116,35 +111,15 @@ python tests/test_data_loading.py
 - **MAPE**: ~25%
 
 ### Saídas Geradas:
-- **`data/processed/previsoes_janeiro_2023_[timestamp].csv`**
-  ```
-  semana,pdv,produto,quantidade
-  1,1023,SKU_1001,15
-  1,1023,SKU_1002,23
-  ...
-  ```
-- **`data/processed/resumo_forecasting_[timestamp].txt`** - Relatório executivo
-
-## 🎯 Features do Sistema
-
-✅ **Fallback Automático**: Usa dados simulados se parquet falhar  
-✅ **Validação Temporal**: Evita data leakage  
-✅ **Visualizações Integradas**: Gráficos de análise e resultados  
-✅ **Export Automático**: CSV e relatórios estruturados  
-✅ **Documentação Completa**: Notebooks com explicações detalhadas  
-✅ **Testes Validados**: Scripts testados e funcionais  
+- **`artifacts/sales_forecaster.joblib`**: Artefato do modelo treinado.
+- **`previsoes_janeiro_2023_[timestamp].csv`**: Arquivo com as previsões.
 
 ## 🛠️ Troubleshooting
 
 ### Problemas Comuns:
-1. **Erro com arquivos parquet**: O sistema usa dados simulados automaticamente
-2. **Bibliotecas não encontradas**: Execute `pip install -r requirements.txt`
-3. **Jupyter não abre**: Instale com `pip install jupyter notebook`
-
-### Para Suporte:
-- Verifique `tests/simple_test.py` para validar bibliotecas
-- Use `tests/forecast_demo_complete.py` se o notebook falhar
-- Consulte `tests/README.md` para detalhes dos scripts
+1. **Erro com arquivos parquet**: Certifique-se de que os arquivos foram baixados e colocados na pasta `data/raw/`.
+2. **Bibliotecas não encontradas**: Execute `pip install -r requirements.txt` no seu ambiente virtual.
+3. **Jupyter não abre**: Instale com `pip install jupyter notebook`.
 
 ## 🤝 Contribuição
 
@@ -161,9 +136,11 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 ## 👥 Equipe de Desenvolvimento
 
 **Projeto desenvolvido por:**
-- **Pedro Morato**
-- **Pietra Paz** 
+- **Pedro Morato** 
 - **Erick Mendes**
+
+**Grupo: **
+- BSB Data 01
 
 ## 🏆 Hackathon
 
@@ -171,4 +148,4 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ---
 
-**Status**: ✅ **Funcional e Testado** 🚀
+**Status**: ✅ **Versão 2.0 Lançada** 🚀

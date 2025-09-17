@@ -4,8 +4,6 @@
 # DADOS ORIGINAIS (MUITO GRANDES PARA GIT)
 # ============================================
 data/raw/*.parquet
-data/raw/*.snappy.parquet
-data/raw/part-*.parquet
 
 # ============================================
 # ARQUIVOS ESPECÍFICOS DO PROJETO
