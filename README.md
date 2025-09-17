@@ -4,7 +4,7 @@
 
 Este projeto desenvolve um sistema de forecasting para apoiar a reposição automática de estoque, prevendo quantidades semanais de vendas por PDV/SKU para otimizar o processo de compras.
 
-## 🌟 Novidades da Versão 2.0
+## 🌟 Novidades da Versão 2.1
 
 - **Eficiência Aprimorada**: O indicador de eficiência (bins) saltou de **1.400 para 14.100**, representando um ganho massivo na capacidade de processamento e análise.
 - **Artefatos de Treinamento Completos**: Feedbacks de treinamento muito mais detalhados e completos, permitindo uma análise mais profunda do desempenho do modelo.
@@ -148,4 +148,4 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ---
 
-**Status**: ✅ **Versão 2.0 Lançada** 🚀
+**Status**: ✅ **Versão 2.1 Lançada** 🚀
