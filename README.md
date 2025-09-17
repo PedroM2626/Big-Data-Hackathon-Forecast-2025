@@ -1,4 +1,4 @@
-# 🎯 Big Data Hackathon Forecast 2025
+# 🎯 Big Data Forecast Hackathon Forecast 2025
 
 ## Modelo de Previsão de Vendas para Sistema One-Click Order
 
@@ -144,7 +144,7 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ## 🏆 Hackathon
 
-**Big Data Hackathon 2025** - Sistema One-Click Order
+**Big Data Forecast Hackathon 2025** - Sistema One-Click Order
 
 ---
 
