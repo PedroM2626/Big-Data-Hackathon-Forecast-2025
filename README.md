@@ -50,6 +50,62 @@ O projeto está organizado da seguinte forma para garantir modularidade e clarez
 
 ---
 
-## ⚙️ Configuração do Ambiente
+## ▶️ Como Executar o Pipeline
 
-Para replicar o ambiente de desenvolvimento e executar os scripts, siga os
+O processo é dividido em duas etapas principais: treinamento e previsão. Execute os scripts a partir do terminal, na pasta raiz do projeto.
+
+**1. Treinar o Modelo:**
+   *Este processo é computacionalmente intensivo e pode levar várias horas.*
+   
+   ```bash
+   # Treine o LightGBM com 100 trials de otimização para máxima precisão
+   python train.py --n_trials 100
+   ```
+   Ao final, o arquivo `sales_forecaster_v2_final.joblib` será criado na pasta `artifacts/`.
+
+**2. Gerar o Arquivo de Submissão Final:**
+   *Este script carrega o modelo já treinado e gera o arquivo final feito para a submissão no Hackathon (limitado a 1,5 milhão de linhas).*
+
+   * **Para gerar o arquivo de SUBMISSÃO (limitado a 1.5M de linhas):**
+       ```bash
+       python predict.py
+       ```
+       Este é o comando padrão e gerará o arquivo formatado para a plataforma do hackathon.
+
+   * **Para gerar a previsão COMPLETA (Opcional):**
+       Se desejar a previsão para todos os produtos, sem o limite de linhas, use a flag `--full_forecast`.
+       ```bash
+       python predict.py --full_forecast
+       ```
+
+---
+
+## 📊 Resultados
+
+O modelo final, avaliado em um conjunto de validação hold-out (últimas 4 semanas de 2022), alcançou um **Erro Médio Absoluto (MAE)** de **2.576895**. Este valor indica que, em média, as previsões do modelo erraram por aproximadamente 2,5 unidades, uma métrica de alta precisão para a complexidade do problema.
+
+---
+
+## 💻 Tecnologias Utilizadas
+
+* **Linguagem:** Python 3.13
+* **Bibliotecas Principais:**
+    * Pandas (Manipulação de Dados)
+    * **LightGBM** (Modelagem de Gradient Boosting)
+    * **Optuna** (Otimização de Hiperparâmetros)
+    * Scikit-learn (Métricas e Pré-processamento)
+    * Joblib (Serialização de Modelos)
+    * NumPy (Computação Numérica)
+
+---
+
+## ✍️ Autores - Equipe: BSB Data 01
+
+* **Erick Cardoso Mendes (desenvolvedor)**
+* **Pedro Morato Lahoz (relator)**
+
+---
+
+## 📄 Licença
+
+Este projeto está licenciado sob a Licença MIT.
