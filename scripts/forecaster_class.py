@@ -1,9 +1,6 @@
-# forecaster_class.py
-
 import logging
 import os
 from typing import Dict, List, Tuple
-
 import joblib
 import lightgbm as lgb
 import numpy as np
@@ -11,18 +8,15 @@ import pandas as pd
 from sklearn.metrics import mean_absolute_error
 import optuna
 
-# (Aqui entra a classe SalesForecasterV2 completa que você já tem)
+# Classe pública que define o que será o 'cérebro' do modelo, como ele deverá agir ao treinar.
 class SalesForecasterV2:
-    """
-    Versão final e polida do Forecaster, pronta para a submissão.
-    Contém o pipeline completo, desde o carregamento de dados até a previsão.
-    """
     def __init__(self):
         self.model = None
         self.feature_names: List[str] = []
         self.categorical_features: List[str] = []
         self.performance_metrics: Dict[str, float] = {}
 
+    # Carregar os dados para análise
     def load_data(self, file_paths: Dict[str, str]) -> pd.DataFrame:
         logging.info("Iniciando o carregamento dos dados normalizados.")
         try:
@@ -43,6 +37,7 @@ class SalesForecasterV2:
         logging.info(f"Dados agregados e enriquecidos. DataFrame final com {df_aggregated.shape[0]} registros.")
         return df_aggregated
 
+    # Engenharia de features:
     def feature_engineering(self, df: pd.DataFrame) -> pd.DataFrame:
         df_featured = df.copy()
         df_featured.sort_values(['pdv', 'sku', 'ano', 'semana'], inplace=True)
@@ -60,8 +55,8 @@ class SalesForecasterV2:
         df_featured.fillna(0, inplace=True)
         return df_featured
 
+    # Engenharia de dados
     def _prepare_data_for_model(self, df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.Series]:
-        # ... (cole o método _prepare_data_for_model completo)
         df_model = df.copy()
         self.categorical_features = ['pdv', 'sku']
         for col in self.categorical_features:
@@ -77,8 +72,8 @@ class SalesForecasterV2:
         y = df_model['quantidade']
         return X, y
 
-    def train(self, df: pd.DataFrame, validation_split_week: int = 48, use_optuna: bool = True, n_trials: int = 10):
-        # ... (cole o método train completo)
+    # A ser importado: Garante o treinamento do modelo. Define número de trials, parâmetros, hiperparâmetros e etc.
+    def train(self, df: pd.DataFrame, validation_split_week: int = 48, use_optuna: bool = True, n_trials: int = 100):
         df_train_raw = df[df['ano'] == 2022].copy()
         if df_train_raw.empty: raise ValueError("Não há dados históricos de 2022 para treinar o modelo.")
         df_featured = self.feature_engineering(df_train_raw)
@@ -110,6 +105,7 @@ class SalesForecasterV2:
         self.performance_metrics['validation_mae'] = mae
         logging.info(f"Treinamento concluído. MAE no set de validação: {mae:.4f}")
 
+    # A ser importado:  Faz as devidas previsões depois do treinamento bem-sucedido
     def generate_forecasts(self, df_historical: pd.DataFrame, weeks_to_forecast: int) -> pd.DataFrame:
         if not self.model: raise RuntimeError("O modelo não foi treinado.")
         forecast_df = df_historical.copy()
@@ -138,9 +134,11 @@ class SalesForecasterV2:
             forecast_df = pd.concat([forecast_df, new_data], ignore_index=True)
         return pd.concat(all_forecasts, ignore_index=True) if all_forecasts else pd.DataFrame()
 
+    # A ser importado: Salva o artefato (modelo baseado em ML treinado, pronto para receber comandos como prever dados futruros) na pasta dedicada.
     def save_model(self, path: str):
         if not self.model: raise RuntimeError("Nenhum modelo treinado para salvar.")
         os.makedirs(os.path.dirname(path), exist_ok=True)
         artifacts = {"model": self.model, "feature_names": self.feature_names, "categorical_features": self.categorical_features}
         joblib.dump(artifacts, path)
         logging.info(f"Modelo e artefatos V2 salvos em: '{path}'")
+
