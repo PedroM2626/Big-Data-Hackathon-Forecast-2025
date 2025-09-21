@@ -41,10 +41,11 @@ O projeto está organizado da seguinte forma para garantir modularidade e clarez
 ├── data/
 │   ├── raw/                # Dados brutos de entrada (.parquet)
 │   └── processed/          # Previsões finais geradas pelo script (.parquet)
-├── forecaster_class.py     # Arquivo contendo a classe principal do pipeline (SalesForecasterV2)
-├── train.py                # Script para treinar o modelo LightGBM com Optuna
-├── predict.py              # Script para gerar a previsão final usando o modelo treinado
-└── requirements.txt        # Arquivo com as dependências do projeto
+├── scripts/
+    ├── forecaster_class.py     # Arquivo contendo a classe principal do pipeline (SalesForecasterV2)
+    ├── train.py                # Script para treinar o modelo LightGBM com Optuna
+    └── predict.py              # Script para gerar a previsão final usando o modelo treinado
+
 ```
 
 ---
