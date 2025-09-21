@@ -52,6 +52,8 @@ O projeto está organizado da seguinte forma para garantir modularidade e clarez
 
 ## ▶️ Como Executar o Pipeline
 
+* Salve todas as pastas deste repositório em uma única, com o nome de sua preferência.
+
 O processo é dividido em duas etapas principais: treinamento e previsão. Execute os scripts a partir do terminal, na pasta raiz do projeto.
 
 **1. Treinar o Modelo:**
