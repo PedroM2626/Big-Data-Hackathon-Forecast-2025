@@ -1,4 +1,4 @@
-# 🎯 Big Data Forecast Hackathon Forecast 2025
+# 🎯 Big Data - Hackathon Forecast 2025
 
 ## Modelo de Previsão de Vendas para Sistema One-Click Order
 
